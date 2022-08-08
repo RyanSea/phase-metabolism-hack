@@ -56,8 +56,17 @@ async function display (address) {
     let profile_address = await phase.phase(address)
 
     if (profile_address === ethers.constants.AddressZero) {
-        return "Profile Doesn't Exist"
+        
+        return {
+            name : address,
+            image : 'https://i.imgur.com/VvOpmh3.png', // Defailt avatar
+            banner : "https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg",
+            bio : "Character",
+            links : [ ["Instagram", "instagram.com/cor"], ["Website", "https://corinthian.xyz"] ]
+        }
+        
     }
+
     
     const profiles = `
     query MyQuery {
@@ -70,15 +79,25 @@ async function display (address) {
     
     
     `
-
-
     var response
 
     await request('https://api.zora.co/graphql', profiles).then(data => {
         response = data 
     })
 
-    return response.token.token.metadata
+    if (response.token) {
+        return response.token.token.metadata
+    } else {
+       return  {
+            name : "Loading Profile",
+            image : 'https://i.imgur.com/VvOpmh3.png', // Defailt avatar
+            banner : "https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg",
+            bio : "Loading your profile to the blockchain",
+            links : [ ["Website", "https://autocrat.xyz"], ["Website", "https://corinthian.xyz"] ]
+        }
+    }
+
+    
     
 }
 

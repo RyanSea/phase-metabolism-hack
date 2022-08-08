@@ -23,16 +23,14 @@ async function createPhase(address, username, avatar, banner, bio, links) {
 
         let metadata = {
             address : address,
-            username : username,
-            avatar : avatar,
+            name : username,
+            image : avatar,
             banner : banner,
             bio : bio,
             links : links
         }
 
         uri = "data:application/json;base64," + base64.encode(JSON.stringify(metadata))
-
-        console.log(uri)
 
         // // Create profile
         let tx = await phase.createProfile(address, username, avatar, banner, bio, links )
