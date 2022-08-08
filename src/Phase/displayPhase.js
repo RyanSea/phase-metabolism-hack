@@ -90,6 +90,7 @@ async function display (address) {
     } else {
        return  {
             name : "Loading Profile",
+            address: address,
             image : 'https://i.imgur.com/VvOpmh3.png', // Defailt avatar
             banner : "https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg",
             bio : "Loading your profile to the blockchain",
